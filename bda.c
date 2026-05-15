@@ -21,9 +21,6 @@ static inline void skip_comment(uint8_t **src){
 
 static inline void flush_x(bda_descriptor *bda, uint64_t *x, uint64_t *y, uint64_t *n, uint64_t *number, int64_t val) {
     if(*x >= (*bda).x){
-        (*bda).x = (uint64_t)val;
-        *x = (uint64_t)val;
-        *n = -(*n);
         (*bda).n = *n;
         return;
     }
@@ -35,9 +32,6 @@ static inline void flush_x(bda_descriptor *bda, uint64_t *x, uint64_t *y, uint64
 
 static inline void flush_y(bda_descriptor *bda, uint64_t *x, uint64_t *y, uint64_t *n, uint64_t *number, int64_t val) {
     if(*y >= (*bda).y){
-        (*bda).y = (uint64_t)val;
-        *y = (uint64_t)val;
-        *n = -(*n);
         (*bda).n = *n;
         return;
     }
@@ -49,6 +43,13 @@ static inline void flush_y(bda_descriptor *bda, uint64_t *x, uint64_t *y, uint64
 }
 
 void bda_parse(bda_descriptor *bda){
+
+    if((*bda).x == 0 || (*bda).y == 0 || (*bda).n == 0){
+        (*bda).x = 0;
+        (*bda).y = 0;
+        (*bda).n = 0;
+        return;
+    }
 
     uint8_t *src = (uint8_t *)(*bda).src;
     uint64_t x = 0, y = 0, n = 0;
@@ -125,6 +126,9 @@ void bda_parse(bda_descriptor *bda){
                     src++;
                 }
             }
+            if(number != 0){
+                number = -number;
+            }
         }
         else if(*src >= '0' && *src <= '9') {
             number = 0;
@@ -164,6 +168,7 @@ void bda_parse(bda_descriptor *bda){
         }
     }
 
+    n = number;
     (*bda).n = n;
     (*bda).x = x;
     (*bda).y = y;

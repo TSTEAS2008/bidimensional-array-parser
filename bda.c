@@ -20,7 +20,7 @@ static inline void skip_comment(uint8_t **src){
 }
 
 static inline void flush_x(bda_descriptor *bda, uint64_t *x, uint64_t *y, uint64_t *n, uint64_t *number, int64_t val) {
-    if(*x >= (*bda).x){
+    if(*x >= (*bda).x || *y >= (*bda).y){
         (*bda).n = *n;
         return;
     }
@@ -31,7 +31,7 @@ static inline void flush_x(bda_descriptor *bda, uint64_t *x, uint64_t *y, uint64
 }
 
 static inline void flush_y(bda_descriptor *bda, uint64_t *x, uint64_t *y, uint64_t *n, uint64_t *number, int64_t val) {
-    if(*y >= (*bda).y){
+    if(*x >= (*bda).x || *y >= (*bda).y){
         (*bda).n = *n;
         return;
     }

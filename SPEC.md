@@ -102,13 +102,13 @@ output: {0, 1, 0, [[1, 123, 43]]}
 note: The commas inside the comments and spacing outside the comments do not register as anything. 
 
 8)
-input: {4, 1, 4, "1, 1jun k2, 23, 43;\0"}
-output: {0, 1, 0, [[1, 12, 23, 43]]}
-note: The junk inside the "12" gets skipped.
+input: {3,1,3,"12,-3random4,st5r6ing;\0"}
+output: {0,1,0,[[12,-34,56]]}
+note: '-' enters negative decimal mode. The number is accumulated normally and negated before flush. 
 
 9) 
 input: {2, 3, 9, "1, 52, 47; 132, 4332, 65; 54, 83, 19;\0"}
-output: {3, 0, 47, [[1, 52]]}
+output: {2, 0, 47, [[1, 52]]}
 note: Despite the generous y and n, the moment x overflew the parser returned.
 
 10) 

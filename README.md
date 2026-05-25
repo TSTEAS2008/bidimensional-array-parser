@@ -43,3 +43,12 @@ Supports:
 
 ## Important note
 This module assumes the caller manages memory for dest. No allocation is performed internally. 
+
+## Platform Support
+
+This library is developed and tested on x86-64 (x64) architectures only. 
+It makes the following assumptions that may not hold on other platforms:
+
+- Pointers fit in 64 bits (`src` and `dest` are stored as `uint64_t`)
+- `uint64_t` is 8 bytes (used for memory stride calculations)
+- Two's complement signed integer representation
